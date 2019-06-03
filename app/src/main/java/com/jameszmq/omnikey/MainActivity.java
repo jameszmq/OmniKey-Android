@@ -190,6 +190,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Intent intent = new Intent(this, OmniKeyService.class);
+        stopService(intent);
         unbindService(serviceConnection);
         unregisterReceiver(broadcastReceiver);
     }

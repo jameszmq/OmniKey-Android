@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Queue;
 
 import static android.bluetooth.BluetoothAdapter.STATE_CONNECTED;
+import static com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT;
 import static com.google.android.gms.location.Geofence.NEVER_EXPIRE;
 
 public class OmniKeyService extends Service {
@@ -180,6 +181,7 @@ public class OmniKeyService extends Service {
     };
 
     public void setGeofence(Location location, int which) {
+        removeGeofence(which);
         Geofence geofence = new Geofence.Builder()
                 .setRequestId(Integer.toString(which))
                 .setCircularRegion(
@@ -204,6 +206,12 @@ public class OmniKeyService extends Service {
             return;
         }
         geofencingClient.addGeofences(request, getGeofencePendingIntent())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("GeofenceClient", "geofence added.");
+                    }
+                })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
