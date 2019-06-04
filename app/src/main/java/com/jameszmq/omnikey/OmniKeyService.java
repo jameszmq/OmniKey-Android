@@ -35,10 +35,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 import static android.bluetooth.BluetoothAdapter.STATE_CONNECTED;
-import static com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT;
+import static com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER;
 import static com.google.android.gms.location.Geofence.NEVER_EXPIRE;
 
 public class OmniKeyService extends Service {
@@ -187,12 +186,13 @@ public class OmniKeyService extends Service {
                 .setCircularRegion(
                         location.getLatitude(),
                         location.getLongitude(),
-                        300
+                        150
                 )
                 .setExpirationDuration(NEVER_EXPIRE)
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)
                 .build();
         GeofencingRequest request = new GeofencingRequest.Builder()
+                .setInitialTrigger(GEOFENCE_TRANSITION_ENTER)
                 .addGeofence(geofence) // add a Geofence
                 .build();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
