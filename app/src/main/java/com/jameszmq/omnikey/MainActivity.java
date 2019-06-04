@@ -31,6 +31,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
 
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
-    private static final int KEY_NUM = 5;
+    private static final int KEY_NUM = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
                                 // Logic to handle location object
                                 keyListAdapter.setLat(location.getLatitude(), which);
                                 keyListAdapter.setLng(location.getLongitude(), which);
+                                Log.d("Location", "Lat: " + location.getLatitude() + " Lng: " + location.getLongitude());
                                 service.setGeofence(location, which);
                             }
                         }

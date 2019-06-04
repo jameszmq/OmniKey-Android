@@ -74,7 +74,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
             List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
 
             for (Geofence geofence : triggeringGeofences) {
-                Log.d("Geofence","Triggered: " + geofence.getRequestId());
+                Log.d("Geofence","Enter Triggered: " + geofence.getRequestId());
                 service.operationQueue.enqueue(Mapper.map(geofence.getRequestId(), true));
             }
         }
@@ -85,7 +85,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
             List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
 
             for (Geofence geofence : triggeringGeofences) {
-                Log.d("Geofence","Triggered: " + geofence.getRequestId());
+                Log.d("Geofence","Exit Triggered: " + geofence.getRequestId());
                 service.operationQueue.enqueue(Mapper.map(geofence.getRequestId(), false));
             }
         }
